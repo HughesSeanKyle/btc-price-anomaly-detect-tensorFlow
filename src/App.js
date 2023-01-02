@@ -1,13 +1,16 @@
 import logo from './logo.svg';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import LineChart from './components/Charts/LineChart';
 import { getBTCHistoricalPrice } from './api/coinGecko';
 
 function App() {
+	const [historicPriceData, setHistoricPriceData] = useState(null);
+
 	useEffect(() => {
 		(async () => {
-			await getBTCHistoricalPrice();
+			const historicPrices = await getBTCHistoricalPrice();
+			setHistoricPriceData(historicPrices);
 		})();
 	});
 
