@@ -20,9 +20,21 @@ function App() {
 
 	return (
 		<div className="App p-5">
-			<LineChart historicData={historicData} heading="Btc Price over 30 days" />
-			<LineChart historicData={historicData} heading="Btc Price over 30 days" />
-			<LineChart historicData={historicData} heading="Btc Price over 30 days" />
+			<LineChart
+				historicData={historicData.formattedHistoricPrices}
+				heading="Btc Price over 30 days"
+				color="#ed0c0c"
+			/>
+			<LineChart
+				historicData={historicData.formattedHistoricTotalVolumes}
+				heading="Btc Trading Volume over 30 days"
+				color="#06bd30"
+			/>
+			<LineChart
+				historicData={historicData.formattedHistoricMarketCaps}
+				heading="Btc Market Capitalization over 30 days"
+				color="#0742d9"
+			/>
 		</div>
 	);
 }

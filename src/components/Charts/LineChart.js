@@ -4,16 +4,16 @@ import 'chartjs-plugin-datalabels';
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
-const LineChart = ({ historicData }) => {
+const LineChart = ({ historicData, heading, color }) => {
 	console.log('historicData', historicData);
 
 	const data = {
-		labels: historicData?.formattedHistoricPrices.xAxisFormattedArr,
+		labels: historicData?.xAxisFormattedArr,
 		datasets: [
 			{
 				label: 'Price',
-				data: historicData?.formattedHistoricPrices.yAxisFormattedArr,
-				borderColor: '#3e95cd',
+				data: historicData?.yAxisFormattedArr,
+				borderColor: color,
 				fill: false,
 			},
 		],
@@ -44,7 +44,12 @@ const LineChart = ({ historicData }) => {
 			],
 		},
 	};
-	return <Line data={data} options={options} />;
+	return (
+		<div>
+			<h1 className="mt-3">{heading}</h1>
+			<Line data={data} options={options} />
+		</div>
+	);
 };
 
 export default LineChart;
