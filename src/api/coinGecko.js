@@ -2,13 +2,6 @@ import axios from 'axios';
 
 // Helper
 const formatPrice = (arr) => {
-	// const sampleArr = [
-	//     [1672599938852, 16593.961279812982],
-	//     [1672600204747, 16594.62116601541],
-	//     [1672600532129, 16610.318169673446],
-	//     [1672600903802, 16621.129627710525],
-	// ];
-
 	const xAxisArr = [];
 	const yAxisArr = [];
 
@@ -20,26 +13,50 @@ const formatPrice = (arr) => {
 		yAxisArr.push(coorditates[1]);
 	});
 
-	console.log('xAxisArr', xAxisArr);
-	console.log('yAxisArr', yAxisArr);
-
 	return {
 		xAxisFormattedArr: xAxisArr,
 		yAxisFormattedArr: yAxisArr,
 	};
 };
+
 // at some point add id, vs currency and days as args
-export async function getBTCHistoricalPrice() {
+export async function getBTCHistoricalData() {
 	try {
 		const response = await axios.get(
 			`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30`,
 			{}
 		);
-		const data = response.data.prices;
+		console.log('response.data', response.data);
+
+		const { prices, total_volumes, market_caps } = response.data;
+
+		const formattedHistoricPrices = formatPrice(prices);
+		const formattedHistoricTotalVolumes = formatPrice(total_volumes);
+		const formattedHistoricMarketCaps = formatPrice(market_caps);
+
+		const formattedData = {
+			formattedHistoricPrices,
+			formattedHistoricTotalVolumes,
+			formattedHistoricMarketCaps,
+		};
+
+		return formattedData;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function getBTCTradeVolBinance() {
+	try {
+		const response = await axios.get(
+			`https://api.coingecko.com/api/v3/exchanges/binance`,
+			{}
+		);
+		const data = response.data;
 		console.log('data', data);
 
-		const formattedHistoricPrices = formatPrice(data);
-		return formattedHistoricPrices;
+		// const formattedHistoricPrices = formatPrice(data);
+		// return formattedHistoricPrices;
 	} catch (error) {
 		console.error(error);
 	}

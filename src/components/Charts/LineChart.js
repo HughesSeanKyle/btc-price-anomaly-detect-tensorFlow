@@ -4,15 +4,15 @@ import 'chartjs-plugin-datalabels';
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
-const LineChart = ({ historicPriceData }) => {
-	console.log('historicPriceData', historicPriceData);
+const LineChart = ({ historicData }) => {
+	console.log('historicData', historicData);
 
 	const data = {
-		labels: historicPriceData?.xAxisFormattedArr,
+		labels: historicData?.formattedHistoricPrices.xAxisFormattedArr,
 		datasets: [
 			{
 				label: 'Price',
-				data: historicPriceData?.yAxisFormattedArr,
+				data: historicData?.formattedHistoricPrices.yAxisFormattedArr,
 				borderColor: '#3e95cd',
 				fill: false,
 			},
