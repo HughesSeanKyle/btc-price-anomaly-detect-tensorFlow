@@ -43,6 +43,7 @@ const options = {
 					display: true,
 					labelString: 'Price',
 				},
+				type: 'linear',
 			},
 		],
 		xAxes: [
@@ -51,6 +52,7 @@ const options = {
 					display: true,
 					labelString: 'Date',
 				},
+				type: 'linear',
 			},
 		],
 	},
