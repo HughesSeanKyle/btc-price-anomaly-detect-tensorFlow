@@ -14,7 +14,7 @@ const formatPrice = (arr) => {
 
 	arr.map((coorditates, index) => {
 		const date = new Date(coorditates[0]);
-		const formattedDate = date.toLocaleDateString();
+		const formattedDate = date.toLocaleString();
 
 		xAxisArr.push(formattedDate);
 		yAxisArr.push(coorditates[1]);
@@ -25,7 +25,7 @@ const formatPrice = (arr) => {
 
 	return {
 		xAxisFormattedArr: xAxisArr,
-		YAxisFormattedArr: yAxisArr,
+		yAxisFormattedArr: yAxisArr,
 	};
 };
 // at some point add id, vs currency and days as args

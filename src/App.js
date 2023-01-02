@@ -11,12 +11,14 @@ function App() {
 		(async () => {
 			const historicPrices = await getBTCHistoricalPrice();
 			setHistoricPriceData(historicPrices);
+
+			console.log('historicPriceData', historicPriceData);
 		})();
-	});
+	}, []);
 
 	return (
 		<div className="App p-5">
-			<LineChart />
+			<LineChart historicPriceData={historicPriceData} />
 		</div>
 	);
 }
