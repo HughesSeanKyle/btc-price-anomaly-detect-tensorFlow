@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { chain, divide, multiply } from 'math.js';
 
 // Helper
 const formatPrice = (arr) => {
@@ -19,6 +20,35 @@ const formatPrice = (arr) => {
 	};
 };
 
+const calcAveTradeVol = (arr) => {
+	// const totalTradingVolume = 0;
+	const totalVolume = arr.reduce(
+		(a, b) => parseFloat(a.toFixed(2)) + parseFloat(b.toFixed(2)),
+		0
+	);
+
+	const amountOfItemsInArr = arr.length;
+
+	const averageVolume = totalVolume / amountOfItemsInArr;
+	const averageVolumeTwoDecimals = parseFloat(averageVolume.toFixed(2));
+
+	return averageVolumeTwoDecimals;
+};
+
+const calcAveTradeVolPercent = (arr) => {
+	const trdVolPerecentChangeXAis = [];
+
+	const averageTradingVolume = calcAveTradeVol(arr);
+
+	arr.map((tradeVol, index) => {
+		let percentChange =
+			(averageTradingVolume / parseFloat(tradeVol.toFixed(2))) * 100;
+		trdVolPerecentChangeXAis.push(parseFloat(percentChange.toFixed(2)));
+	});
+
+	return trdVolPerecentChangeXAis;
+};
+
 // at some point add id, vs currency and days as args
 export async function getBTCHistoricalData() {
 	try {
@@ -33,11 +63,22 @@ export async function getBTCHistoricalData() {
 		const formattedHistoricPrices = formatPrice(prices);
 		const formattedHistoricTotalVolumes = formatPrice(total_volumes);
 		const formattedHistoricMarketCaps = formatPrice(market_caps);
+		const formattedHistoricTrdVolsPrecentage = {
+			xAxisFormattedArr: formattedHistoricTotalVolumes.xAxisFormattedArr,
+			yAxisFormattedArr: calcAveTradeVolPercent(
+				formattedHistoricTotalVolumes.yAxisFormattedArr
+			),
+		};
+
+		// const yAxisTrdVolPrecentChange = calcAveTradeVolPercent(
+		// 	formattedHistoricTotalVolumes.yAxisFormattedArr
+		// );
 
 		const formattedData = {
 			formattedHistoricPrices,
 			formattedHistoricTotalVolumes,
 			formattedHistoricMarketCaps,
+			formattedHistoricTrdVolsPrecentage,
 		};
 
 		return formattedData;

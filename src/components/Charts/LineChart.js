@@ -4,8 +4,9 @@ import 'chartjs-plugin-datalabels';
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
-const LineChart = ({ historicData, heading, color }) => {
-	console.log('historicData', historicData);
+const LineChart = ({ historicData, heading, color, id }) => {
+	console.log('id', id);
+	console.log('historicData from line chart', historicData);
 
 	const data = {
 		labels: historicData?.xAxisFormattedArr,
