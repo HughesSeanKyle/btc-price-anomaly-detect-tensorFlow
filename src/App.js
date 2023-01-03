@@ -10,12 +10,12 @@ function App() {
 	useEffect(() => {
 		(async () => {
 			const historicData = await getBTCHistoricalData();
-			console.log('historicData', historicData);
+			// console.log('historicData', historicData);
 			setHistoricData(historicData);
 
 			const tradeVolBinance = await getBTCTradeVolBinance();
 
-			console.log('tradeVolBinance', tradeVolBinance);
+			// console.log('tradeVolBinance', tradeVolBinance);
 		})();
 	}, []);
 
@@ -28,16 +28,16 @@ function App() {
 				id="price"
 			/>
 			<LineChart
-				historicData={historicData?.formattedHistoricTotalVolumes}
-				heading="Btc Trading Volume over 30 days"
-				color="#06bd30"
-				id="tradeVolume"
-			/>
-			<LineChart
 				historicData={historicData?.formattedHistoricMarketCaps}
 				heading="Btc Market Capitalization over 30 days"
 				color="#0742d9"
 				id="MarketCap"
+			/>
+			<LineChart
+				historicData={historicData?.formattedHistoricTotalVolumes}
+				heading="Btc Trading Volume over 30 days"
+				color="#06bd30"
+				id="tradeVolume"
 			/>
 			<LineChart
 				historicData={historicData?.formattedHistoricTrdVolsPrecentage}

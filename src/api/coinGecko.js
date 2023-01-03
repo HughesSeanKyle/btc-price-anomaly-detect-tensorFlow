@@ -102,3 +102,29 @@ export async function getBTCTradeVolBinance() {
 		console.error(error);
 	}
 }
+
+// ________________________Tensor Flow_______________________ //
+const trainAdTestData = async () => {
+	const { formattedHistoricPrices } = await getBTCHistoricalData();
+
+	// Split the data into training and testing sets
+	const trainSize = Math.floor(
+		0.8 * formattedHistoricPrices.yAxisFormattedArr.length
+	);
+	const trainData = formattedHistoricPrices.yAxisFormattedArr.slice(
+		0,
+		trainSize
+	);
+	const testData = formattedHistoricPrices.yAxisFormattedArr.slice(trainSize);
+
+	console.log(
+		'formattedHistoricPrices from train and test',
+		formattedHistoricPrices
+	);
+
+	console.log('trainSize', trainSize);
+	console.log('trainData', trainData);
+	console.log('testData', testData);
+};
+
+trainAdTestData();
